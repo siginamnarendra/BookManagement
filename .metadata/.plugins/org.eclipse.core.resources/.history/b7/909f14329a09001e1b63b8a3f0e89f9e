@@ -1,0 +1,32 @@
+package com.customerService.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.customerService.dto.AuthRequest;
+import com.customerService.entity.Customer;
+import com.customerService.service.CustomersService;
+
+
+@RestController
+@RequestMapping("/secure/auth")
+public class AdminController {
+
+	@Autowired
+	private CustomersService customerService;
+
+	@PostMapping("/register")
+	public String registerUser(@RequestBody Customer customer) {
+	  return customerService.saveUser(customer);
+	}
+	@PostMapping("/logIn")
+	public String logIn(@RequestBody AuthRequest authRequest) {
+	  return customerService.logUser(authRequest);
+	}
+
+	
+
+}

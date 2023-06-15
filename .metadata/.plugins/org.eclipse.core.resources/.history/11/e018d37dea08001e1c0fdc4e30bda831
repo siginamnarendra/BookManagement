@@ -1,0 +1,95 @@
+package com.orderService.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
+import com.orderService.client.BookClient;
+import com.orderService.client.CartClient;
+import com.orderService.entity.Orders;
+import com.orderService.model.Cart;
+import com.orderService.model.CartItems;
+import com.orderService.service.OrderItemsService;
+import com.orderService.service.OrderService;
+
+
+@RestController
+@RequestMapping("/order")
+public class OrderController {
+	
+	@Autowired
+	private CartClient cartFeignClient; 
+	
+	@Autowired
+	private BookClient bookFeignClient;
+	
+	@Autowired
+	private OrderService orderService;
+	
+	@GetMapping("/listOrders")
+	public List<Orders> listOrders(@RequestHeader("loggedInUserName") String customerId)
+	{
+		
+		return orderService.getOrdersByCustomer(customerId);
+		
+	}
+	@GetMapping("/listOrders")
+	public Orders getOrderById(String orderId)
+	{
+		return orderService.getOrderById(orderId);
+		
+	}
+	
+	  @GetMapping("/add-cart") 
+	  public Orders addFromCart(@RequestHeader("loggedInUserName") String
+	  cid) { return orderService.addFromCart(cid); }
+	 
+	  
+	
+	/*
+	 * @GetMapping("/getOrders") public List<Orders> getData() { List<Orders> list =
+	 * orderService.getOrders();
+	 * 
+	 * return list; }
+	 */
+	
+//	@GetMapping("/placeOrder/{customerId}")
+//	public String makeOrder(@PathVariable("customerId")String customerId){
+//		System.out.println("_________place starting");
+//		Cart cart = cartFeignClient.getCart(customerId);
+//		
+//		System.out.println(cart+"_______");
+//		
+//		List<CartItems> items= cart.getCartItems();
+//		for(CartItems item :items) {
+//			System.out.println(item.getBookId());
+//			bookFeignClient.updateBookQuantity(item.getBookId());
+//		}
+//		ordersService.addOrder(customerId,cart.getTotalPrice());
+//		orderItemsService.addOrderItems(customerId,cart.getCartItems());
+//		
+//		cartFeignClient.removeCart(customerId);
+//		
+//		
+//		return "Order placed Successfully";
+//	}
+//	@GetMapping("/hi")
+//	public String hi(){
+//		return "hello";
+//	}
+	
+	@PostMapping("placeOrder")
+	public String placeOrder(@RequestHeader("loggedInUserName")String customerId)
+	{
+		
+		return null;
+	}
+	
+}

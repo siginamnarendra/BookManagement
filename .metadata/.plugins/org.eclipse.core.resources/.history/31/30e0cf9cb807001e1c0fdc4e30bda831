@@ -1,0 +1,5 @@
+package com.jwtConsumer.controller;
+
+public class TestController {
+
+}

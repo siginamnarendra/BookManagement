@@ -1,0 +1,5 @@
+package com.identity.service;
+
+public class JwtService {
+
+}

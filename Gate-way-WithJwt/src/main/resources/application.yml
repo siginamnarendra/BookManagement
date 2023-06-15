@@ -1,0 +1,48 @@
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    
+
+spring:
+  application:
+    name: GateWay-Api-JWT
+  cloud:
+    gateway:
+      routes:
+      - id: Customer-Service
+        uri: http://localhost:8080/         #re-directing microservice 
+        predicates:
+        - Path=/customerService/**        #user given url
+        filters:
+           - AuthenticationFilter
+           
+      - id: Book-Service
+        uri: http://localhost:8081/
+        predicates:
+        - Path=/books/**
+        filters:
+           - AuthenticationFilter
+           
+      - id: Cart-Service
+        uri: http://localhost:8082/
+        predicates:
+        - Path=/cart/**
+        filters:
+           - AuthenticationFilter
+           
+      - id: Order-Service
+        uri: http://localhost:8083/
+        predicates:
+        - Path=/order/**
+        filters:
+           - AuthenticationFilter
+      - id: identity-service
+        uri: lb://IDENTITY-SERVICE
+        predicates:
+           - Path=/auth/**
+    

@@ -1,0 +1,29 @@
+package com.orderService.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.orderService.client.CartClient;
+import com.orderService.dao.OrderJpaRepository;
+import com.orderService.entity.Order;
+import com.orderService.model.Cart;
+
+@Service
+public class OrderService {
+
+	@Autowired
+	private OrderJpaRepository orderRepository;
+	@Autowired 
+	private CartClient cartClient;
+	
+	public String placeorder(String customerId)
+	{
+		Cart cart=cartClient.getCartItems(customerId);
+		Order order=new Order();
+		order.setCustomerId(customerId);
+		order.setTotalPrice(cart.getTotalPrice());
+		order.setOrderItems(cart.getCartItems());
+		orderRepository.save(order);
+		return "order placed";
+	}
+}

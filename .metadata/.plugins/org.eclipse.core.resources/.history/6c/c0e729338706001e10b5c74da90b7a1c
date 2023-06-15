@@ -1,0 +1,16 @@
+package com.orderService.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.orderService.dao.OrderJpaRepository;
+
+public class OrderService {
+
+	@Autowired
+	private OrderJpaRepository orderRepository;
+	
+	public String placeorder(String customerId)
+	{
+		return null;
+	}
+}

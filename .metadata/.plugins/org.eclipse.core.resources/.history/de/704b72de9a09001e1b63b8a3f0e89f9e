@@ -1,0 +1,13 @@
+package com.identity;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CloudGatewayService1Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CloudGatewayService1Application.class, args);
+	}
+
+}

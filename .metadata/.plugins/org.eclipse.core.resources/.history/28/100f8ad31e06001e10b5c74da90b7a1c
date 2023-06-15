@@ -1,0 +1,5 @@
+package com.identity.entity;
+
+public class UserCredential {
+
+}

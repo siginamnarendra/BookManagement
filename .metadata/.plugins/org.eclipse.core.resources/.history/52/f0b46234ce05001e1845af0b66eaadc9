@@ -1,0 +1,33 @@
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+spring:
+  application:
+    name: GateWay-Api
+  cloud:
+    gateway:
+      routes:
+      - id: Customer-Service
+        uri: CustomerService
+        predicates:
+        - Path=/customerService/**
+      - id: Book-Service
+        uri: http://localhost:8081/
+        predicates:
+        - Path=/books/**
+      - id: Cart-Service
+        uri: http://localhost:8082/
+        predicates:
+        - Path=/cart/**
+      - id: Order-Service
+        uri: http://localhost:8083/
+        predicates:
+        - Path=/orders/**
+        

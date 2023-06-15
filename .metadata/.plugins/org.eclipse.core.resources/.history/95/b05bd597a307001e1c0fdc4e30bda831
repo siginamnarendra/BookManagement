@@ -1,0 +1,16 @@
+package com.jwtSecurity.service;
+
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
+	
+	@Autowired
+	private UserRepository userDao;
+
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		List<SimpleGrantedAuthority> roles=null;
+		if(username.equals("admin"))
+		{

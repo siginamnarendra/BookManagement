@@ -1,0 +1,10 @@
+package com.orderService.dao;
+
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.orderService.entity.OrderItems;
+
+public interface OrderItemsJpaRepository extends JpaRepository<OrderItems, Integer>{
+
+}

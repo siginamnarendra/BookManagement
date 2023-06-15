@@ -1,0 +1,79 @@
+package com.customerService.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.customerService.client.BookClient;
+import com.customerService.client.CartClient;
+import com.customerService.client.JwtClient;
+import com.customerService.dao.CustomerJpaRepository;
+import com.customerService.dao.UserRepository;
+import com.customerService.dto.AuthRequest;
+import com.customerService.dto.UserCredential;
+import com.customerService.entity.Customer;
+import com.customerService.exceptions.UserAlreadyExistedException;
+import com.customerService.exceptions.UserNotFoundException;
+import com.customerService.model.Book;
+import com.customerService.model.Cart;
+import com.customerService.model.CartItems;
+import com.customerService.model.User;
+import java.util.List;
+import javax.transaction.Transactional;
+
+@Service
+public class CustomersService {
+
+	@Autowired
+	private CustomerJpaRepository customerJpaRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private JwtClient jwtClient;
+
+
+	@Transactional
+	public String saveUser(Customer theCustomer) {
+		String email = theCustomer.getCustomerEmail();
+		try {
+
+			Customer customer = customerJpaRepository.findById(email).get();
+
+			throw new UserAlreadyExistedException();
+
+		} catch (UserAlreadyExistedException ex) {
+			return "email :" + email + " is existed";
+		}
+
+		catch (Exception e) {
+			
+			UserCredential user=new UserCredential();
+			user.setEmail(theCustomer.getCustomerEmail());
+			user.setName(theCustomer.getCustomerName());
+			user.setPassword(theCustomer.getPassword());
+			jwtClient.addNewUser(user);
+			Customer savedCustomer = customerJpaRepository.save(theCustomer);	
+			return savedCustomer.getCustomerName() + " is registered as a user with " +" username : " + savedCustomer.getCustomerEmail();
+			
+		}
+
+	}
+	public void addUser(AuthRequest authRequest)
+	{
+		
+		 jwtClient.getToken(authRequest);
+		
+	}
+	@Transactional
+	public List<Customer> getAllCustomer() {
+
+		return customerJpaRepository.findAll();
+
+	}
+
+	public Customer getCustomerbyid(String id)
+	{
+		return customerJpaRepository.findById(id)
+				.orElseThrow(() -> new UserNotFoundException("No customer found with the phn: " + id));
+	}
+}

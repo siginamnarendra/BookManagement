@@ -1,0 +1,9 @@
+server.port=1111
+jwt.secret=javainusexxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+jwt.jwtExpirationInMs=0
+#5 hours
+
+spring.datasource.url=jdbc:mysql://localhost:3306/jwt
+spring.datasource.username=springstudent
+spring.datasource.password=springstudent
+spring.jpa.hibernate.ddl-auto=update 

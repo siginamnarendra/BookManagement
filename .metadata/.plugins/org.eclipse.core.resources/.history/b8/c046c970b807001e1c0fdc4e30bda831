@@ -1,0 +1,13 @@
+package com.jwtConsumer;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class JwtCOnsumerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(JwtCOnsumerApplication.class, args);
+	}
+
+}

@@ -1,0 +1,72 @@
+package com.orderService.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.Id;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.orderService.client.CartClient;
+import com.orderService.dao.OrderJpaRepository;
+import com.orderService.entity.OrderItems;
+import com.orderService.entity.Orders;
+import com.orderService.model.Cart;
+import com.orderService.model.CartItems;
+
+@Service
+public class OrderService {
+
+	@Autowired
+	private OrderJpaRepository orderRepository;
+	@Autowired 
+	private CartClient cartClient;
+	
+	/*
+	 * public String placeorder(String customerId) { try { Cart
+	 * cart=cartClient.getCart(customerId); Optional<Orders>
+	 * orders=orderRepository.findById(customerId); Orders
+	 * order=optionalOrders.orElseThrow(() -> new
+	 * NoSuchElementException("Orders not found"));
+	 * 
+	 * order.setCustomerId(customerId);
+	 * 
+	 * List<CartItems> items=cart.getCartItems(); for (CartItems item : items) {
+	 * 
+	 * OrderItems orderItems = new OrderItems();
+	 * 
+	 * orderItems.setCustomerId(customerId); orderItems.setBookId(item.getBookId());
+	 * orderItems.setBookPrice(item.getBookPrice());
+	 * orderItems.setBookTitle(item.getBookTitle());
+	 * orderItems.setCartItemId(item.getCartItemId());
+	 * orderItems.setQuantity(item.getQuantity()); orderItems.setOrder(order);
+	 * orderItems.setOrderDate(new Date()); order.getOrderItems().add(orderItems);
+	 * cartClient.deleteFromCart(item.getCartItemId()); } }
+	 * order.setCustomerId(customerId);
+	 * 
+	 * List<CartItems> items=cart.getCartItems(); for (CartItems item : items) {
+	 * 
+	 * OrderItems orderItems = new OrderItems();
+	 * 
+	 * orderItems.setCustomerId(customerId); orderItems.setBookId(item.getBookId());
+	 * orderItems.setBookPrice(item.getBookPrice());
+	 * orderItems.setBookTitle(item.getBookTitle());
+	 * orderItems.setCartItemId(item.getCartItemId());
+	 * orderItems.setQuantity(item.getQuantity()); orderItems.setOrder(order);
+	 * 
+	 * order.getOrderItems().add(orderItems);
+	 * cartClient.deleteFromCart(item.getCartItemId()); }
+	 * orderRepository.save(order);
+	 * 
+	 * }catch (Exception e) { try { throw new RuntimeException();
+	 * }catch(RuntimeException ex) { return "no orders found"; }
+	 * 
+	 * }
+	 * 
+	 * 
+	 * order.getOrserItems().addAll(null) orderRepository.save(order); return
+	 * "order placed"; }
+	 */
+}

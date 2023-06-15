@@ -1,0 +1,18 @@
+package com.customerService.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.customerService.dto.UserCredential;
+
+
+@Service
+@FeignClient(url="http://localhost:9898/auth",name="identity-Client")
+public class JwtClient {
+	
+	@PostMapping("/register")
+    public String addNewUser(@RequestBody UserCredential user);
+
+}

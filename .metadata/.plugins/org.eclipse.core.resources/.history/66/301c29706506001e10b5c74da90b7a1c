@@ -1,0 +1,5 @@
+package com.orderService.dao;
+
+public class OrderJpaRepository {
+
+}

@@ -1,0 +1,5 @@
+package com.jwtSecurity.controller;
+
+public class AuthenticationController {
+
+}

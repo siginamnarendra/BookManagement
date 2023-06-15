@@ -1,0 +1,5 @@
+package com.orderService.entity;
+
+public class Order {
+
+}

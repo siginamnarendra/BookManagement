@@ -1,0 +1,5 @@
+package com.jwtSecurity.dto;
+
+public class UserDTO {
+
+}

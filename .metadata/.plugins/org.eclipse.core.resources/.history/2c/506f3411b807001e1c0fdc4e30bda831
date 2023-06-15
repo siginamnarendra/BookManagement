@@ -1,0 +1,5 @@
+package com.jwtConsumer.model;
+
+public class User {
+
+}

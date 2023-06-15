@@ -1,0 +1,5 @@
+package com.customerService.client;
+
+public class CartClient {
+
+}

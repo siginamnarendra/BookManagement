@@ -1,0 +1,5 @@
+package com.customerService.model;
+
+public class User {
+
+}

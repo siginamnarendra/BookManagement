@@ -1,0 +1,33 @@
+package com.orderService.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.cartService.entity.Cart;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+public class OrderItems {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Integer orderItemId;
+	private Integer bookId;
+	private String bookTitle;
+	private Integer quantity;
+	private Integer bookPrice;
+	
+	@ManyToOne
+	@JoinColumn(name = "orderId")
+	@JsonBackReference
+	private Order order;
+}

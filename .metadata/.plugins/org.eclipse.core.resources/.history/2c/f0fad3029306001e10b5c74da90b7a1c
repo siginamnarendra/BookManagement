@@ -1,0 +1,33 @@
+package com.orderService.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.orderService.service.OrderService;
+
+@RestController
+@RequestMapping("/orders")
+public class OrderController {
+
+	@Autowired
+	private OrderService orderService;
+	@GetMapping("confirmOrder")
+	public String confirmOrder()
+	{
+		return orderService.placeorder("1004");
+	}
+	@GetMapping("getMyOrders/{id}")
+	public String getMyOrders(@PathVariable("id") int id)
+	{
+		return null;
+	}
+	
+	@GetMapping("getOrderDetails/{orderId}")
+	public String getOrderDetails(@PathVariable("orderId") int id)
+	{
+		return null;
+	}
+}

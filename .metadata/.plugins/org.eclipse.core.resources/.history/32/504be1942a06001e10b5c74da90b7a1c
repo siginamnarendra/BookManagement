@@ -1,0 +1,15 @@
+package com.customerService.client;
+
+import java.util.List;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.customerService.model.Book;
+
+@FeignClient(url="http://localhost:8081/books",name="Book-Client")
+public interface BookClient {
+
+	@GetMapping("/listBooks")
+	public List<Book> getAllBooks();
+}

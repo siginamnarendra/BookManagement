@@ -1,0 +1,8 @@
+package com.customerService.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient("")
+public class CustomerClient {
+
+}

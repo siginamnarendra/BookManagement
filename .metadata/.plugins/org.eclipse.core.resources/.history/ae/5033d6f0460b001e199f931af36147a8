@@ -1,0 +1,5 @@
+package com.customerService.exceptions;
+
+public class CartNotAvailableResponse {
+
+}

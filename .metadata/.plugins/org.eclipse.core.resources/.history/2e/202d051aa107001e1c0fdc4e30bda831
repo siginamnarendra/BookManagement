@@ -1,0 +1,4 @@
+server.port=1111
+jwt.secret=javainusexxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+jwt.jwtExpirationInMs=0
+#5 hours

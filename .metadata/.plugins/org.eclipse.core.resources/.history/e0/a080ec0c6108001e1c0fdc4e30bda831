@@ -1,0 +1,101 @@
+package com.cartService.service;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cartService.client.BookClient;
+import com.cartService.dao.CartItemsRepository;
+import com.cartService.dao.CartRepository;
+import com.cartService.dto.Book;
+import com.cartService.dto.Items;
+import com.cartService.entity.Cart;
+import com.cartService.entity.CartItems;
+
+@Service
+public class CartService {
+
+	@Autowired
+	private CartRepository cartRepository;
+	@Autowired
+	private CartItemsRepository cartitemsRepository;
+	@Autowired
+	private BookClient bookClient;
+
+	public Cart addToCart(Cart cart)
+	{	
+		Integer totalprice = 0;
+		try 
+		{
+
+			Cart crt = getCartById(cart.getCustomerId());
+			crt.getCartItems().addAll(cart.getCartItems());
+			
+//			 totalprice = crt.getTotalPrice(); 
+//			  List<CartItems> items = cart.getCartItems();
+//			  
+//			  Iterator<CartItems> iterator = items.iterator();
+//			  while (iterator.hasNext()) {
+//			  CartItems item = iterator.next(); 
+//			  totalprice += (item.getBookPrice() * item.getQuantity()); 
+//			  }
+//			  crt.setTotalPrice(totalprice);
+			
+			
+			return cartRepository.save(crt);
+		}
+		
+		
+		catch(Exception exception){
+			
+			
+			 
+			return cartRepository.save(cart);
+		}
+	}
+	public Cart saveToCart(int bookId,int quantity,String customerId)
+	{
+		int bookQuantity=bookClient.checkBookQuantity(bookId);
+		if(bookQuantity<quantity)
+		{
+			
+			Book book=bookClient.getBookById(bookId);
+			Items cartItems=new Items();
+			cartItems.setBookId(book.getBookId());
+			cartItems.setBookPrice(book.getBookPrice());
+			cartItems.setBookTitle(book.getBookTitle());
+			cartItems.setCustomerId(customerId);
+			cartItems.setQuantity(quantity);
+			Cart cart=new Cart();
+			cart.setCustomerId(customerId);
+			//cart.se
+			return null;
+		}
+		else {
+			try {
+				throw new RuntimeException();
+			}catch(RuntimeException ex) {
+				System.out.println("please select the <= available book quantity");
+			}
+			
+		}
+		
+	}
+	
+	public Cart getCartById(String customerId)
+	{
+		return cartRepository.findByCustomerId(customerId);
+	}
+
+	public String deleteFromCart(int cartItemId) {
+		cartitemsRepository.deleteById(cartItemId);
+		return "deleted id" + cartItemId;
+	}
+
+	public Cart getCartItems(String customerId) {
+		return cartRepository.findById(customerId).get();
+	}
+
+}

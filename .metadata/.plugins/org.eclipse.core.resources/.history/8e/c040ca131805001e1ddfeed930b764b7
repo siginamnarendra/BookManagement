@@ -1,0 +1,56 @@
+package com.cartService.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cartService.dao.CartItemsRepository;
+import com.cartService.dao.CartRepository;
+import com.cartService.entity.Cart;
+import com.cartService.entity.CartItems;
+
+@Service
+public class CartService {
+
+	@Autowired
+	private CartRepository cartRepository;
+	@Autowired
+	private CartItemsRepository cartitemsRepository;
+
+	public Cart addToCart(Cart cart) {
+		String customerId=cart.getCustomerId();
+		System.out.println(customerId);
+		try {
+			System.out.println("try enter");
+			 
+			Cart userCart=cartRepository.findById(customerId).get();
+			System.out.println("try exit");
+			 userCart.setCartItems(cart.getCartItems());
+			
+			return cartRepository.save(cart);
+			
+		}
+		catch(Exception e) {
+			List<CartItems> cartItems = cart.getCartItems();
+			cartItems.setCart(cart);
+			cartItems.setBookPrice(cartItems.getBookPrice());
+			cartItems.setBookId(cartItems.getBookId());
+			cartItems.setBookPrice(cartItems.getBookPrice());
+			System.out.println("catch exit");
+		}
+		
+
+		return cartRepository.save(cart);
+	}
+
+//	public String deleteFromCart(int cartItemId) {
+//		cartRepository.deleteById(cartItemId);
+//		return "deleted id" + cartItemId;
+//	}
+//
+//	public Cart getCartItems(int cartId) {
+//		return cartRepository.findById(cartId).get();
+//	}
+
+}

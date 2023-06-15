@@ -1,0 +1,5 @@
+package com.identity.controller;
+
+public class AuthController {
+
+}

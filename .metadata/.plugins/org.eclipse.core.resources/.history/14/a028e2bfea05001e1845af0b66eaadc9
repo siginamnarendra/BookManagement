@@ -1,0 +1,5 @@
+package com.customerService.controller;
+
+public class AdminController {
+
+}

@@ -1,0 +1,87 @@
+package com.customerService.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.customerService.dao.CustomerJpaRepository;
+import com.customerService.dao.UserRepository;
+import com.customerService.entity.Customer;
+import com.customerService.exceptions.UserAlreadyExistedException;
+import com.customerService.exceptions.UserNotFoundException;
+import com.customerService.model.User;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+@Service
+public class CustomersService {
+
+	@Autowired
+	private CustomerJpaRepository customerJpaRepository;
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	@Transactional
+	public String saveUser(Customer theCustomer) {
+
+//		  String email=theCustomer.getCustomerEmail();
+//		  System.out.println(email+"_____");
+//		  //System.out.println(customerJpaRepository.findById(email).get()+"_____");
+//		  if(customerJpaRepository.findById(email)==null) { throw new
+//		  UserAlreadyExistedException("Email :"
+//		  +email+" was Existed please try unused Email"); } else { Customer
+//		  savedCustomer=customerJpaRepository.save(theCustomer); return
+//		  "User saved with Id :"+savedCustomer.getCustomerId(); }
+		String email = theCustomer.getCustomerEmail();
+		try {
+
+			Customer customer = customerJpaRepository.findById(email).get();
+
+			throw new UserAlreadyExistedException();
+
+		} catch (UserAlreadyExistedException ex) {
+			return "email :" + email + " is existed";
+		}
+
+		catch (Exception e) {
+			
+			User user=new User();
+			user.setUsername(theCustomer.getCustomerEmail());
+			user.setPassword(theCustomer.getPassword());
+			userRepository.save(user);
+			Customer savedCustomer = customerJpaRepository.save(theCustomer);	
+			
+			return savedCustomer.getCustomerName() + " is registered as a user with " +" username : " + savedCustomer.getCustomerEmail();
+			
+		}
+
+	}
+	public void addUser(User user)
+	{
+		String pwd= user.getPassword();
+		 String encrptedPwd = passwordEncoder.encode(pwd);
+		 user.setPassword(encrptedPwd);
+		 userRepository.save(user);
+		
+	}
+	@Transactional
+	public List<Customer> getAllCustomer() {
+
+		return customerJpaRepository.findAll();
+
+	}
+
+	public Customer getCustomerbyid(String id)
+	{
+		return customerJpaRepository.findById(id)
+				.orElseThrow(() -> new UserNotFoundException("No customer found with the phn: " + id));
+	}
+}

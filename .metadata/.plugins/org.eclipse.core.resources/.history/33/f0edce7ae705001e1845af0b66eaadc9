@@ -1,0 +1,5 @@
+package com.customerService.dao;
+
+public class UserRepository {
+
+}

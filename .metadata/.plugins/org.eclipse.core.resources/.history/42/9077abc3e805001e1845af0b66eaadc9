@@ -1,0 +1,5 @@
+package com.customerService.config;
+
+public class SecurityConfig {
+
+}

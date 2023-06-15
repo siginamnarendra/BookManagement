@@ -1,0 +1,26 @@
+package com.jwtConsumer.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+public class TestController {
+
+		@Autowired
+		RestTemplate restTemplate;
+
+		private static final String REGISTRATION_URL = "http://localhost:1111/register";
+		private static final String AUTHENTICATION_URL = "http://localhost:1111/authenticate";
+		private static final String HELLO_URL = "http://localhost:8080/helloadmin";
+
+		@RequestMapping(value = "/getResponse", method = RequestMethod.GET)
+		public String getResponse() throws JsonProcessingException {
+
+			String response = null;
+			// create user registration object
+			RegistrationUser registrationUser = getRegistrationUser();
+			// convert the user registration object to JSON
+			String registrationBody = getBody(registrationUser);
+			// create headers specifying that it is JSON request
+}

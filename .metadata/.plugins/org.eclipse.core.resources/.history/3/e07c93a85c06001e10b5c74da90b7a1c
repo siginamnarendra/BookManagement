@@ -1,0 +1,12 @@
+package com.customerService.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Service;
+
+@Service
+@FeignClient(url="http://localhost:8082/cart",name="Cart-Client")
+@ComponentScan
+public class CartClient {
+
+}

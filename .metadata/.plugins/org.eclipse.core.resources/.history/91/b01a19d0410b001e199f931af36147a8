@@ -1,0 +1,5 @@
+package com.customerService.dto;
+
+public class UserDetails {
+
+}

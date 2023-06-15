@@ -1,0 +1,19 @@
+package com.customerService.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.customerService.model.Cart;
+
+@Service
+@FeignClient(url="http://localhost:8082/cart",name="Cart-Client")
+@ComponentScan
+public interface CartClient {
+
+	@PostMapping("/addtocart")
+	public Cart addToCart(@RequestBody Cart cart);
+
+}

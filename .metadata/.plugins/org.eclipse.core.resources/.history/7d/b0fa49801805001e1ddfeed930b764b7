@@ -1,0 +1,73 @@
+package com.cartService.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cartService.dao.CartItemsRepository;
+import com.cartService.dao.CartRepository;
+import com.cartService.entity.Cart;
+import com.cartService.entity.CartItems;
+
+@Service
+public class CartService {
+
+	@Autowired
+	private CartRepository cartRepository;
+	@Autowired
+	private CartItemsRepository cartitemsRepository;
+
+	public Cart addtoCart(Cart cart)
+	{	
+		Integer totalprice = 0;
+		try 
+		{
+
+			Cart c = cart.getCartById(cart.getCustomerId());
+			c.getItems().addAll(cart.getItems());
+			
+			  totalprice = c.getTotalPrice(); 
+			  List<Items> items = cart.getItems();
+			  
+			  Iterator<Items> iterator = items.iterator();
+			  while (iterator.hasNext()) {
+			  Items item = iterator.next(); 
+			  totalprice += (item.getBookPrice() * item.getQuantity()); 
+			  }
+			  c.setTotalPrice(totalprice);
+			 
+			return cartRepository.save(c);
+		}
+		
+		
+		catch(Exception ex){
+			
+			  List<Items> items = cart.getItems();
+			  Iterator<Items> iterator = items.iterator(); 
+			  while (iterator.hasNext()) {
+			  Items item = iterator.next(); 
+			  totalprice += (item.getBookPrice() * item.getQuantity()); 
+
+			  }
+			  
+
+			  cart.setTotalPrice(totalprice);
+			 
+			return cartRepository.save(cart)
+;
+		}
+		
+		
+	}
+
+//	public String deleteFromCart(int cartItemId) {
+//		cartRepository.deleteById(cartItemId);
+//		return "deleted id" + cartItemId;
+//	}
+//
+//	public Cart getCartItems(int cartId) {
+//		return cartRepository.findById(cartId).get();
+//	}
+
+}

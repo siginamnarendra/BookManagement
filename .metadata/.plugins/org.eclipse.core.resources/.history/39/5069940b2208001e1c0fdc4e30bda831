@@ -1,0 +1,5 @@
+package com.jwtGateway.filter;
+
+public class RouteValidator {
+
+}

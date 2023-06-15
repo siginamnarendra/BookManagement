@@ -1,0 +1,36 @@
+package com.orderService.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.orderService.dao.OrderItemsJpaRepository;
+import com.orderService.dao.OrderJpaRepository;
+import com.orderService.entity.OrderItems;
+import com.orderService.model.CartItems;
+
+@Service
+public class OrderItemsService {
+
+	@Autowired
+	private OrderItemsJpaRepository orderItemsRepository;
+
+	public void addOrderItems(String customerId, List<CartItems> items) {
+
+		for (CartItems item : items) {
+
+			OrderItems orderItems = new OrderItems();
+
+			orderItems.setCustomerId(customerId);
+			orderItems.setBookId(item.getBookId());
+			orderItems.setBookPrice(item.getBookPrice());
+			orderItems.setBookTitle(item.getBookTitle());
+			orderItems.setCartItemId(item.getCartItemId());
+			orderItems.setQuantity(item.getQuantity());
+
+			orderItemsRepository.save(orderItems);
+
+		}
+	}
+}
